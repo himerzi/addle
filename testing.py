@@ -1,4 +1,7 @@
+from server import twitter
+
 screen_name = 'melior_cj'
+t = twitter()
 
 links = {}
 
@@ -25,18 +28,20 @@ def check_connections(user, user_friends):
 #list users followeds from api
 #user_friends = ['mdetmold','tomchambers','joeroot','dclough','jordnb']
 
-user_friends = get_friends(screen_name)
+user_friends = t.get_friends(screen_name)
 
-#friends_friends = {
+"""friends_friends = {
 	'mdetmold': ['tomchambers','joeroot','johnnynobody','foghorn'],
 	'tomchambers': ['mdetmold','joeroot','jordnb'],
 	'joeroot': ['outofnetwork','beastboy','tomchambers','mdetmold','jordnb'],
 	'dclough': ['economics','businessguy','jordnb','mdetmold'],
 	'jordnb': ['mdetmold','tomchambers']
-}
+}"""
+
+friends_friends = {}
 
 for a in user_friends:
-	friends_friends[a] = get_friends(a)
+	friends_friends[a] = t.get_friends(a)
 
 	connection = friends_friends[a]
 
