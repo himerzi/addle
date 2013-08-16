@@ -39,8 +39,20 @@ class twitter:
             raise Exception('Error in API call. Twitter returned:' + r.text)
         return r.json()['ids']
 
+    def get_friends_rate_limit(self):
+        """
+        Returns: A string representing your rate limits
+        """
+
+        headers = {"Authorization": "Bearer {!s}".format(self.bearer)}
+        parameters = {"resources": "friends"}
+        r = requests.get("https://api.twitter.com/1.1/application/rate_limit_status.json", params=parameters,headers=headers,verify=False)
+        if r.status_code != requests.codes.ok:
+            raise Exception('Error in API call. Twitter returned:' + r.text)
+        return str(r.json()['resources'])
+
 if __name__ == "__main__":
     #app = web.application(urls, globals())
     #app.run()
     twit = twitter()
-    print twit.get_friends('himerzi')
+    print twit.get_friends_rate_limit()
