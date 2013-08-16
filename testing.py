@@ -1,13 +1,15 @@
-user_id = 'bob'
+screen_name = 'melior_cj'
 
-def check_connections(user, first_level):
+links = {}
+
+def check_connections(user, user_friends):
 	upper_user = user.upper()
 	print "NOW CHECKING "+upper_user
 
 	connections = 0
-	for a in first_level_follows:
+	for a in friends_friends:
 		#print "another loop"
-		connection = first_level_follows[a]
+		connection = friends_friends[a]
 		#print connection
 
 		#print connection
@@ -15,13 +17,17 @@ def check_connections(user, first_level):
 			#print b
 			if user == b:
 				connections = connections + 1
-				print user+" is followed by "+a+". They now have "+str(connections)+" connections"
+				#print user+" is followed by "+a+". They now have "+str(connections)+" connections"
 
+	links[user] = connections			
 	return connections
 
 #list users followeds from api
-first_level = ['mdetmold','tomchambers','joeroot','dclough','jordnb']
-first_level_follows = {
+#user_friends = ['mdetmold','tomchambers','joeroot','dclough','jordnb']
+
+user_friends = get_friends(screen_name)
+
+#friends_friends = {
 	'mdetmold': ['tomchambers','joeroot','johnnynobody','foghorn'],
 	'tomchambers': ['mdetmold','joeroot','jordnb'],
 	'joeroot': ['outofnetwork','beastboy','tomchambers','mdetmold','jordnb'],
@@ -29,18 +35,14 @@ first_level_follows = {
 	'jordnb': ['mdetmold','tomchambers']
 }
 
-for a in first_level:
-	#list each followed's followeds from the api
-	connection = first_level_follows[a]
+for a in user_friends:
+	friends_friends[a] = get_friends(a)
+
+	connection = friends_friends[a]
 
 	for b in connection:
-		print check_connections(b, first_level)
+		check_connections(b, user_friends)
 
-		#(user, first_level)
-		#perform check to see how many connections they have with the first level
-		#assign them a ranking
-		#print b
+links = sorted(links.items())
 
-#weak_link = follower with lowest value
-
-#return weak_link
+print links
