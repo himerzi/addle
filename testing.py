@@ -1,13 +1,12 @@
 from server import twitter
 
-screen_name = 'melior_cj'
+screen_name = 'tomchambers3'
 t = twitter()
 
 links = {}
 
 def check_connections(user, user_friends):
-	upper_user = user.upper()
-	print "NOW CHECKING "+upper_user
+	print "NOW CHECKING "+str(user)
 
 	connections = 0
 	for a in friends_friends:
@@ -20,7 +19,7 @@ def check_connections(user, user_friends):
 			#print b
 			if user == b:
 				connections = connections + 1
-				#print user+" is followed by "+a+". They now have "+str(connections)+" connections"
+				print str(user)+" is followed by "+str(a)+". They now have "+str(connections)+" connections"
 
 	links[user] = connections			
 	return connections
@@ -32,8 +31,11 @@ user_friends = t.get_friends(screen_name)
 
 friends_friends = {}
 
-for a in user_friends:
+for i,a in enumerate(user_friends):
+	if i > 3:
+		break
 	friends_friends[a] = t.get_friends(user_id=a)
+	print "API calls: "+str(i)
 
 	connection = friends_friends[a]
 
