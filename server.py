@@ -26,13 +26,13 @@ class twitter:
         r = requests.post("https://api.twitter.com/oauth2/token", data=body, headers=headers,verify=False)
         return r.json()['access_token']
 
-    def get_friends(self, screen_name):
+    def get_friends(self, screen_name='', user_id=None):
         """
         Returns: A list of ids that are this person's friends
         include an Authorization header with the value of Bearer <base64 bearer token value from step 2>
         """
         headers = {"Authorization": "Bearer {!s}".format(self.bearer)}
-        parameters = {"screen_name": screen_name}
+        parameters = {"screen_name": screen_name} if not user_id else {"user_id": user_id}
         r = requests.get("https://api.twitter.com/1.1/friends/ids.json", params=parameters,headers=headers,verify=False)
         if r.status_code != requests.codes.ok:
             raise Exception('Error in API call. Twitter returned:' + r.text)
