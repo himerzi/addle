@@ -8,7 +8,6 @@ urls = (
 render = web.template.render('templates/')
 
 class index:
-<<<<<<< Updated upstream
     def GET(self, user_id):
         return user_id
 
@@ -57,10 +56,6 @@ class twitter:
         parameters = {"screen_name": screen_name}
         r = requests.get("https://api.twitter.com/1.1/friends/ids.json", params=parameters,headers=headers,verify=False)
         return r.json()['ids']
-=======
-	def GET(self, user_id):
-		return render.index()
->>>>>>> Stashed changes
 
 if __name__ == "__main__":
     #app = web.application(urls, globals())
