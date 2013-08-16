@@ -34,6 +34,8 @@ class twitter:
         headers = {"Authorization": "Bearer {!s}".format(self.bearer)}
         parameters = {"screen_name": screen_name}
         r = requests.get("https://api.twitter.com/1.1/friends/ids.json", params=parameters,headers=headers,verify=False)
+        if r.status_code != requests.codes.ok:
+            raise 'Error in API call. Twitter returned:' + r.text
         return r.json()['ids']
 
 if __name__ == "__main__":
