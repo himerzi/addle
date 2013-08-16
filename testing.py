@@ -32,7 +32,7 @@ user_friends = t.get_friends(screen_name)
 friends_friends = {}
 
 for i,a in enumerate(user_friends):
-	if i > 3:
+	if i > 1:
 		break
 	friends_friends[a] = t.get_friends(user_id=a)
 	print "API calls: "+str(i)
@@ -45,3 +45,6 @@ for i,a in enumerate(user_friends):
 links = sorted(links.items())
 
 print links
+
+sorted_list = sorted(data, key=lambda tup: tup[1])
+print sorted_list[0][0]
