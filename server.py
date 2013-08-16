@@ -15,13 +15,15 @@ class index:
 
 		#list users followeds from api
 		followeds = ['mdetmold','tomchambers','joeroot','dclough','jordnb']
-		followeds = {
+		followeds_r = {
 			'mdetmold',['tomchambers','joeroot','johnnynobody','foghorn'],
-			'tomchambers',['mdetmold','']
+			'tomchambers',['mdetmold','joeroot','jordnb'],
+			'joeroot',['outofnetwork','beastboy','tomchambers','mdetmold','jordnb']
 		}
 
 		for a in followeds:
 			#list each followed's followeds from the api
+			followeds = followeds_r[a]
 			for b in followeds_r:
 				#perform check to see how many connections they have with the first level
 				#assign them a ranking
