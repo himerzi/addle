@@ -14,6 +14,7 @@ class index:
 class twitter:
     def __init__(self):
         self.bearer = self.__get_bearer()
+        print 'great! our bearer token is', self.bearer
     #@staticmethod
     def __get_bearer(self):
 
