@@ -30,18 +30,10 @@ def check_connections(user, user_friends):
 
 user_friends = t.get_friends(screen_name)
 
-"""friends_friends = {
-	'mdetmold': ['tomchambers','joeroot','johnnynobody','foghorn'],
-	'tomchambers': ['mdetmold','joeroot','jordnb'],
-	'joeroot': ['outofnetwork','beastboy','tomchambers','mdetmold','jordnb'],
-	'dclough': ['economics','businessguy','jordnb','mdetmold'],
-	'jordnb': ['mdetmold','tomchambers']
-}"""
-
 friends_friends = {}
 
 for a in user_friends:
-	friends_friends[a] = t.get_friends(a)
+	friends_friends[a] = t.get_friends(user_id=a)
 
 	connection = friends_friends[a]
 
