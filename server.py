@@ -38,7 +38,13 @@ class twitter:
         if r.status_code != requests.codes.ok:
             raise Exception('Error in API call. Twitter returned:' + r.text)
         return r.json()['ids']
-
+    def get_screen_name(self, user_id):
+        headers = {"Authorization": "Bearer {!s}".format(self.bearer)}
+        parameters = {"user_id": user_id, "include_entities": False}
+        r = requests.get("https://api.twitter.com/1.1/users/show.json", params=parameters,headers=headers,verify=False)
+        if r.status_code != requests.codes.ok:
+            raise Exception('Error in API call. Twitter returned:' + r.text)
+        return str(r.json()['screen_name'])
     def get_friends_rate_limit(self):
         """
         Returns: A string representing your rate limits
@@ -51,8 +57,17 @@ class twitter:
             raise Exception('Error in API call. Twitter returned:' + r.text)
         return str(r.json()['resources'])
 
+    def __get__factory(self, url, parameters):
+
+        def f():
+            headers = {"Authorization": "Bearer {!s}".format(self.bearer)}
+            r = requests.get(url, params=parameters,headers=headers,verify=False)
+            if r.status_code != requests.codes.ok:
+                raise Exception('Error in API call. Twitter returned:' + r.text)
+            return r.json()
+
 if __name__ == "__main__":
     #app = web.application(urls, globals())
     #app.run()
-    twit = twitter()
-    print twit.get_friends_rate_limit()
+    #twit = twitter()
+    #print twit.get_screen_name('12')
